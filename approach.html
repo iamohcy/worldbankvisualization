@@ -1,0 +1,173 @@
+<!-- Bostock's slider brush: http://bl.ocks.org/mbostock/6452972-->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>World Bank Data Visualization</title>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    <link type="text/css" rel="stylesheet" href="./stylesheets/index.css" />
+</head>
+<body>
+
+    <h1 style="margin-bottom: 0px;">World Bank Data Narrative
+    </h1>
+
+    <div id="approach-div">
+        <h3>Introduction</h3>
+        <p>
+            This project aims to create a comprehensive overview of multiple aspects of country's development, such as its population, healthcare, economy, crime rate etc., in order to create a holistic overview of that country and its changes. To do this, I created an interactive visualization charting all spheres of a country’s development.
+        </p>
+        <p>
+            This visualization has 3 main goals:
+        </p>
+
+        <div style="margin-left:35px;">
+            <ol>
+                <li>Create a narrative of a country’s development over time in multiple areas such as health, economy, population etc.</li>
+                <li>Allow for easy cross-country comparison of these metrics</li>
+                <li>Allow for easy comparisons of different metrics for the same country</li>
+            </ol>
+        </div>
+        <p>
+            The end goal would be to allow a user to quickly gain a holistic overview of a country, easily see how different metrics correlate, and allow for direct cross country comparisons over each of the above spheres.
+        </p>
+
+        <h3>Past Work</h3>
+        <p>
+            An existing interactive already exists at the world bank website. However it is lacking in several areas:
+        </p>
+        <div style="margin-left:35px;">
+            <ol>
+                <li>It only allows you to chart a single metric on the x/y axis. </li>
+                <li>You cannot view a country’s entire plot over time, only at a single year (although you can animate how it changes)</li>
+                <li>It has a limited number of indicators for comparison.</li>
+            </ol>
+        </div>
+
+        <h3>Challenges </h3>
+
+        <div style="margin-left:35px;">
+            <ol>
+                <li>
+                    It only allows you to chart a single metric on the x/y axis.
+                </li>
+                <li>
+                    Missing data, making percentile calculations potentially inaccurate.
+                </li>
+                <li>
+                    Allowing the user to easily switch between different views of the data.
+                </li>
+                <li>
+                    Selecting metrics that best represent different areas such as Economy, Population, etc.
+                </li>
+                <li>
+                    Metrics have to be generally descriptive of that area.
+                </li>
+                <li>
+                    Metrics have to have sufficient data for a majority of the countries.
+                </li>
+            </ol>
+        </div>
+
+        <h3>Methodology</h3>
+
+        <h2>Visualization</h2>
+        <div style="margin-left:35px;">
+            <ol>
+                <li>Narrative aspect - Generated plots for each metric that would animate and appear as the user scrolled down.</li>
+                <li>Cross-country Comparisons - Each metric can be selected to transition from a percentile rankings display, to an actual values display.</li>
+                <li>Indicator Comparisons - Additional indicators can be added by entering “Metric Mode” which will then be displayed on an overlay</li>
+            </ol>
+        </div>
+        <h2>User Testing</h2>
+        <p>
+            A large part of this project involved heavy user testing at each stage of the project. After each feature was implemented, the project was sent out to 5-10 friends for comments. These comments would then be collated and used to improve the project. The choice of display modes, and additional features implemented was heavily influenced by this. The end goal was to create as polished a user experience as possible.
+        </p>
+
+        <h3>Data Sources</h3>
+        <p>
+            Data is taken from the database - “World Development Indicators, The World Bank”, spanning the years 2000 to 2012 and consists of 137 separate development indicators. It includes all member countries of the World Bank (188) and all other economies with populations > 30,000 (214). For the purposes of this visualization, 117 different indicators were selected.
+        </p>
+        <p>
+            These indicators are grouped into 14 different sub-categories, namely:
+        </p>
+        <div style="margin-left:35px;">
+            <ol>
+                <li>Health</li>
+                <li>Population</li>
+                <li>Economy</li>
+                <li>Poverty</li>
+                <li>Workforce/Employment</li>
+                <li>Education</li>
+                <li>Technology</li>
+                <li>Research & Development</li>
+                <li>Military</li>
+                <li>Environment</li>
+                <li>Energy Use</li>
+                <li>Crime</li>
+                <li>Youth</li>
+                <li>Transportation</li>
+            </ol>
+        </div>
+
+        <h3>Data Issues</h3>
+        <h2>Reliability</h2>
+        <p>
+            The World Bank Group collects its information from expert informants who provide information free of charge. However, potential issues lie in the low number of informants utilized for each metric, the lack of transparency about these informants, and anomalies in the rankings.
+        </p>
+        <p>
+            Additionally, several of the indicators had a majority of missing values for certain countries. Certain countries generally have a general lack of data for most of the indicators selected as well.
+        </p>
+
+
+        <h3>
+            Data Preparation
+        </h3>
+        <p>
+            Each Indicator series spans across the years 2000 to 2012. For each year, the countries are sorted by their numerical value for that series and year, with countries with empty values ignored.
+        </p>
+        <p>
+            Each country is then assigned a percentile ranking among all other countries with data for that year, from 0.0% (last country) to 100% (first country).
+        </p>
+        <p>
+            Each series is then sorted and grouped by category (e.g. Economy).
+        </p>
+
+        <h3>
+            Data Cleaning
+        </h3>
+        <p>
+            For each series, countries with empty data for all years in that series are filtered out of the final dataset used.
+        </p>
+        <p>
+            Only individual countries are utilized in performing the percentile calculations. Groups of countries such as “Low income”, “OECD members”, etc. are filtered out of the dataset.
+        </p>
+        <p>
+            Missing values are filled using imputation via linear regression.
+        </p>
+
+        <h3>
+            Visualization Details
+        </h3>
+        <p>
+            Narrative text is added to provide some historical/geopolitical context to the plots for the country of Singapore. Rankings will be considered in light of factor’s such as Singapore’s small size, lack of natural resources, high population density, etc. A system exists for the easy entering of narrative text for other countries.
+        </p>
+        <p>
+            D3 is used to generate the plots and legends, while Javascript code is used to switch between different modes of presentation, and animate plots to appear as the user scrolls. Effort was made to contain the entire visualization in a single page, and utilize code to switch between the different modes and views.
+        </p>
+        <p>
+            All line plots, legends and narrative text are dynamically generated based on the countries/metrics selected.
+        </p>
+        <p>
+            For the actual display of the data, I used simple line plots, color-coded by series to show case the change in percentiles/actual-values over time.
+        </p>
+
+        <h3>
+            Limitations
+        </h3>
+        <p>
+            The system does not allow for the position of two different metrics on the x and y axis, making it difficult to judge any linear correlations. Furthermore, the number of countries utilized for each metric changes (due to countries not having any data for that metric), hence any comparisons across metrics might not be accurate
+        </p>
+    </div>
+
+</body>

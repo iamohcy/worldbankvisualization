@@ -1,0 +1,148 @@
+<!-- Bostock's slider brush: http://bl.ocks.org/mbostock/6452972-->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>World Bank Data Narrative</title>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    <link type="text/css" rel="stylesheet" href="./stylesheets/reset.css" />
+    <link type="text/css" rel="stylesheet" href="./stylesheets/index.css" />
+    <!-- <link type="text/css" rel="stylesheet" href="./stylesheets/d3.slider.css" /> -->
+    <!-- <link type="text/css" rel="stylesheet" href="./stylesheets/button.css" /> -->
+    <link type="text/css" rel="stylesheet" href="./stylesheets/loading.css" />
+    <link type="text/css" rel="stylesheet" href="./stylesheets/chosen.min.css" />
+    <link type="text/css" rel="stylesheet" href="./stylesheets/popup.css" />
+    <link type="text/css" rel="stylesheet" href="./stylesheets/button.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div id="main-div" class="hide">
+
+        <h1 style="margin-bottom: 0px;" class="narrative-mode-display">World Bank Data Narrative
+            <span class="narrative-display-span"> -</span>
+            <span id="choose-country-span" class="narrative-display-span">
+                <select id="choose-country" data-placeholder="Country" class="chosen-select" tabindex="0">
+                </select>
+            </span>
+            <span class="current-country-span">
+                -
+            </span>
+            <span class="current-country-span" id="current-country-text">
+            </span>
+        </h1>
+
+        <h1 style="margin-bottom: 0px;" class="comparison-mode-display">World Bank Data Narrative
+            <span class="narrative-display-span"> -</span>
+            <span id="choose-countryA-span" class="narrative-display-span">
+                <select id="choose-countryA" data-placeholder="Country A" class="chosen-select" tabindex="0">
+                </select>
+            </span>
+            <span>
+                v.s.
+            </span>
+            <span id="choose-countryB-span" class="narrative-display-span">
+                <select id="choose-countryB" data-placeholder="Country B" class="chosen-select" tabindex="0">
+                </select>
+            </span>
+        </h1>
+
+        <div id="information-div">
+            This data visualization uses data from the World Bank to chart a country's relative developmental progress over the years 2000-2013. Developmental factors are grouped together in subsets such as Education, Population and Economy, and visualized in terms of the chosen country's <span style="font-weight:bold">percentile ranking</span> amongst all other countries with data values for that year. <span style="font-weight:bold">Hover over data points</span> to view the actual values, <span style="font-weight:bold">click on a line plot</span> to view the actual values for a metric, <span style="font-weight:bold">click on a legend item</span> to compare different metrics for this country, or <span style="font-weight:bold">select COMPARISON MODE</span> to directly compare two countries on each metric. <span style="font-weight:bold"> Scroll down</span> to run the visualization! To <span style="font-weight:bold">view the methodology</span> or learn more about the project, click <a href="./approach.html" target="_blank">here</a>
+        </div>
+
+        <div id="axis-div">
+        </div>
+        <div id="legend-div">
+            <div id="legend-choose-div">
+                <div class="narrative-display-group" style="margin-left: 25px;">
+                    <div style="float:left; width:25%; text-align:center;">
+                        <!-- <i style="font-size:29px" class="fa fa-plus-square"></i> -->
+                        <div style="position:relative; top:6px; font-size:16px;">METRIC:</div>
+                    </div>
+                    <div style="float:right; width:75%">
+                        <select id="choose-metric-group" data-placeholder="Metric" class="metric-select" tabindex="2">
+                        </select>
+                    </div>
+                </div>
+                <div class="actual-fade-first actual-display-group" style="margin-left: 25px;">
+                    <div style="float:left; width:20%; text-align: center;">
+                        <!-- <i style="font-size:29px" class="fa fa-plus-square"></i> -->
+                        <div style="position:relative; top:6px; font-size:16px;">ADD:</div>
+                    </div>
+                    <div style="float:right; width:80%">
+                        <select id="choose-country-actual" data-placeholder="Country" class="chosen-select" multiple tabindex="2">
+                        </select>
+                    </div>
+                </div>
+                <div class="metric-fade-first metric-display-group" style="margin-left: 25px; display:none">
+                    <div style="float:left; width:20%; text-align: center;">
+                        <!-- <i style="font-size:29px" class="fa fa-plus-square"></i> -->
+                        <div style="position:relative; top:6px; font-size:16px;">ADD:</div>
+                    </div>
+                    <div style="float:right; width:80%">
+                        <select id="choose-metric" data-placeholder="Metric" class="chosen-select" multiple tabindex="2">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="actual-display-controls" class="actual-fade-first actual-display-group display-controls">
+                <button type="button" class="button blue narrative-switch-btn">BACK</button><br>
+            </div>
+            <div id="metric-display-controls" class="metric-fade-first metric-display-group display-controls">
+                <button type="button" class="button blue narrative-switch-btn">BACK</button><br>
+            </div>
+            <div id="narrative-display-controls" class="narrative-fade-first narrative-display-group display-controls">
+                <button type="button" class="button blue" id="toggle-narrative-mode-btn">GO TO COMPARISON MODE</button><br>
+            </div>
+
+        </div>
+        <div id="attribution-div">
+            Data from database: World Development Indicators, The World Bank.
+        </div>
+    </div>
+
+    <div id="popup-scrolldown" style="display:none;">
+        Scroll down to begin the visualization!
+    </div>
+
+    <div id="popup-click" style="display:none;">
+        Try clicking on one of the lines to compare countries, or on a legend item to compare different metrics for this country.
+    </div>
+
+    <div id="popup-mode" style="display:none;">
+        To directly compare two countries, click the COMPARISON MODE button.
+    </div>
+
+    <script type="text/javascript" src="./scripts/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="./scripts/d3.min.js"></script>
+
+    <!-- Global values -->
+    <script type="text/javascript" src="./scripts/data.js"></script>
+    <script type="text/javascript" src="./scripts/keys.js"></script>
+    <script type="text/javascript" src="./scripts/countries.js"></script>
+
+    <!-- Extra libraries -->
+    <script type="text/javascript" src="./scripts/greensock/TweenMax.min.js"></script>
+    <script type="text/javascript" src="./scripts/ScrollMagic.min.js"></script>
+    <script type="text/javascript" src="./scripts/plugins/animation.gsap.min.js"></script>
+    <script type="text/javascript" src="./scripts/plugins/debug.addIndicators.min.js"></script>
+    <script type="text/javascript" src="./scripts/d3-tip-fixed.js"></script>
+    <script type="text/javascript" src="./scripts/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="./scripts/jquery.popup.min.js"></script>
+
+    <!-- Project code -->
+    <script type="text/javascript" src="./scripts/worldbank.js"></script>
+
+</body>

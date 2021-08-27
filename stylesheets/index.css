@@ -1,0 +1,188 @@
+body {
+    background-color: #333333;
+    color: #efefef;
+    text-align: center;
+    margin: 0px !important;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+h2 {
+    display: block;
+    font-size: 1.1em;
+    -webkit-margin-before: 0.42em;
+    -webkit-margin-after: 0.42em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+h3 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.42em;
+    -webkit-margin-after: 0.42em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+#main-div {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#approach-div {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#approach-div h3 {
+    margin-top: 42px;
+}
+
+.center-col {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+
+#loading-screen {
+    background-color: rgba(0, 0, 0, 0.69);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: absolute;
+}
+
+
+.line {
+    fill: none;
+    stroke-width: 1.5px;
+}
+
+.line-glow {
+    fill: none;
+}
+
+#axis-div {
+    position: fixed;
+    text-align: center;
+    left: 0px;
+    right: 0px;
+    float: left;
+}
+
+#legend-div {
+    float: right;
+    position: relative;
+}
+
+#country-choose-span .chosen-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.axis {
+    fill: #888888;
+}
+
+.grey-text {
+    fill: #efefef;
+}
+
+.d3-tip {
+    line-height: 1;
+    /*font-weight: bold;*/
+    padding: 12px;
+    background: rgba(100, 100, 100, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    position: fixed;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(100, 100, 100, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+
+.d3-tip-legend-circle {
+    margin-right: 5px;
+}
+
+#information-div {
+    padding: 20px 60px;
+    font-size: 15px;
+}
+
+#attribution-div {
+    clear: both;
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+a {
+    color: #efefef;
+}
+
+a:visited {
+    color: #ffffff;
+}
+a:hover {
+    color: #ffffff;
+}
+a:active {
+    color: #ffffff;
+}
+
+.plotText {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    text-anchor: middle;
+}
+
+.display-controls {
+    position: absolute;
+}
+
+#choose-country-actual-div {
+    margin-top: 10px;
+}
+
+#current-country-text {
+    color: #BDC1ED;
+}
